@@ -1,12 +1,12 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
 from app.models.vehicle import Vehicle, VehicleMode, VehicleStatus
-from app.schemas.vehicle import PaginatedVehicles
+from app.schemas.vehicle import PaginatedVehicles, VehicleOut
 
 router = APIRouter(prefix="/vehicles", tags=["vehicles"])
 
@@ -55,3 +55,24 @@ def search_vehicles(
     ).all()
 
     return PaginatedVehicles(items=list(items), total=total, page=page, page_size=page_size)
+
+
+@router.get(
+    "/{vehicle_id}",
+    response_model=VehicleOut,
+    summary="Consulter la fiche détaillée d'un véhicule (US-04)",
+)
+def get_vehicle(vehicle_id: str, db: Annotated[Session, Depends(get_db)]) -> Vehicle:
+    """
+    En tant que visiteur, je veux consulter la fiche détaillée d'un véhicule
+    afin d'avoir toutes les infos avant de déposer un dossier.
+
+    Critères d'acceptation (MMOT-10) :
+    - fiche avec caractéristiques complètes, prix ou mensualité selon le mode
+    - 404 explicite si le véhicule n'existe pas
+    """
+    vehicle = db.get(Vehicle, vehicle_id)
+    if vehicle is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Véhicule introuvable.")
+    return vehicle
+
