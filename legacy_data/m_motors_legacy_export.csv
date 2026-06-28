@@ -1,0 +1,144 @@
+ref_interne,marque,designation,annee,kilometrage,carburant,type_transaction,prix_vente,mensualite_location,date_export
+MM-0003,Audi,e-tron Sportback (50 Quattro Business Edition),2022,66361,Electrique,VENTE,9398.74,,2026-06-20
+MM-0070,Lexus,RX (450h Business Line),2021,43411,ESSENCE,Loc. LD,,190.38,2026-06-20
+MM-0044,Hyundai,i30 (1.5 T-GDI 48V N Line Sky),2019,113581,Ess.,location,,87.49,2026-06-20
+MM-0023,Ford,Puma (1.0 EcoBoost 125hp Titanium X),2021,113358,Essence,Vente,3636.6,,2026-06-20
+MM-0104,Porsche,Panamera (Turbo S),2021,85096,Ess.,LOCATION,,609.66,2026-06-20
+MM-0079,Mazda,MX-30 (First Edition),2022,-500,electrique,Loc. LD,,191.28,2026-06-20
+MM-0029,Ford,Puma (1.0 EcoBoost 125hp ST-Line),2018,146163,Ess.,VENTE,3522.6,,2026-06-20
+MM-0068,Land Rover,Range Rover Velar (P400 SE),2022,,Ess.,vente,13321.44,,2026-06-20
+MM-0034,Honda,e (Advance),2018,92494,electrique,Vente,4500.0,,2026-06-20
+MM-0119,Tesla,Model Y (Performance AWD),2022,64689,Electrique,vente,9887.08,,2026-06-20
+MM-0077,Lexus,RX (450h Executive Line),2020,89588,ESSENCE,LOCATION LD,,212.12,2026-06-20
+MM-0108,Subaru,Forester (2.0i E-BOXER Comfort),2021,101203,essence,LOCATION,,118.49,2026-06-20
+MM-0038,Honda,e (specs),2020,34751,Électrique,location,,86.25,2026-06-20
+MM-0028,Ford,Puma (1.0 EcoBoost 125hp ST-Line),2024,37841,essence,location,,335.53,2026-06-20
+MM-0114,Tesla,Model Y (Long Range AWD),2019,123719,Electrique,VENTE,7680.0,,2026-06-20
+MM-0095,Mercedes,E-class (-Benz E 300),2022,79057,Ess.,VENTE,7993.68,,2026-06-20
+MM-0020,Ferrari,SF90 Stradale (specs),2018,95649,Essence,Vente,54699.24,,2026-06-20
+MM-0087,Mercedes,E-class (-Benz E 200),2019,113545,Essence,vente,7054.44,,2026-06-20
+MM-0120,Toyota,C-HR (1.2T Active),2018,163748,essence,LOCATION LD,,68.62,2026-06-20
+MM-0106,Porsche,Panamera (Turbo S),2022,63991,Essence,Vente,35125.05,,2026-06-20
+MM-0090,Mercedes,E-class (-Benz E 200),2020,89949,Ess.,LOCATION LD,,146.97,2026-06-20
+MM-0050,Jaguar,E-Pace (P160 R-Dynamic HSE),2022,52629,ESSENCE,location,,266.54,2026-06-20
+MM-0039,Honda,e (specs),2022,70405,ELECTRIQUE,vente,4140.0,,2026-06-20
+MM-0121,Toyota,C-HR (1.2T Active),2022,56428,ESSENCE,Vente,4784.21,,2026-06-20
+MM-0135,Volvo,V90 (T8 Recharge AWD Inscription),2022,84013,essence,Vente,8601.0,,2026-06-20
+MM-0088,Mercedes,E-class (-Benz E 200),2022,87359,Ess.,VENTE,7054.44,,2026-06-20
+MM-0072,Lexus,RX (450h Business Line),2021,113222,ESSENCE,VENTE,9138.0,,2026-06-20
+MM-0094,Mercedes,E-class (-Benz E 300),2023,39456,essence,Vente,26124.41,,2026-06-20
+MM-0073,Lexus,RX (450h Business Line),2024,,Ess.,LOCATION,,945.87,2026-06-20
+MM-0026,Ford,Puma (1.0 EcoBoost 125hp ST-Line),2025,11034,ESSENCE,vente,23656.14,,2026-06-20
+MM-0055,Kia,Picanto (1.0 DPi DynamicLine 4-zits),2025,13489,Essence,location,,263.94,2026-06-20
+MM-0022,Ford,Puma (1.0 EcoBoost 125hp Titanium X),2019,80403,Essence,Vente,3636.6,,2026-06-20
+MM-0048,Jaguar,E-Pace (P160 R-Dynamic HSE),2019,123663,essence,Vente,8102.52,,2026-06-20
+MM-0080,Mazda,MX-30 (First Edition),2019,143868,Électrique,vente,3972.0,,2026-06-20
+MM-0097,Nissan,Juke (DIG-T 117 Acenta),2019,45730,Ess.,vente,3244.8,,2026-06-20
+MM-0009,Audi,e-tron Sportback (50 Quattro Business Edition Plus),2024,37516,Électrique,VENTE,40887.74,,2026-06-20
+MM-0049,Jaguar,E-Pace (P160 R-Dynamic HSE),2025,12949,ESSENCE,vente,53895.53,,2026-06-20
+MM-0013,BMW,5 series (530e),2022,51706,essence,LOCATION,,253.78,2026-06-20
+MM-0123,Toyota,C-HR (1.2T Dynamic),2022,55594,Essence,VENTE,5266.55,,2026-06-20
+MM-0125,Volkswagen,Golf (1.4 EHybrid 245hp GTE),2020,66885,ESSENCE,vente,4975.8,,2026-06-20
+MM-0109,Subaru,Forester (2.0i E-BOXER Comfort),2023,,ESSENCE,Vente,15906.29,,2026-06-20
+MM-0074,Lexus,RX (450h Executive Line),2022,abc,Ess.,VENTE,15070.72,,2026-06-20
+MM-0130,Volkswagen,Up (1.0 R-Line),2025,19626,ESSENCE,location,,282.08,2026-06-20
+MM-0140,Volvo,V90 (T8 Recharge AWD R-Design),2018,139220,essence,vente,8721.0,,2026-06-20
+MM-0081,Mazda,MX-30 (First Edition),2021,88691,ELECTRIQUE,vente,3972.0,,2026-06-20
+MM-0062,Lamborghini,Aventador (S),2020,133373,essence,vente,55143.72,,2026-06-20
+MM-0018,Ferrari,F8 Spider (specs),2018,108651,Essence,VENTE,38562.0,,2026-06-20
+MM-0051,Kia,Picanto (1.0 DPi DynamicLine 5-zits),2019,,Essence,VENTE,1873.8,,2026-06-20
+MM-0093,Mercedes,E-class (-Benz E 300),2024,30672,Essence,VENTE,38457.06,,2026-06-20
+MM-0019,Ferrari,SF90 Stradale (specs),2023,,Ess.,Vente,157198.32,,2026-06-20
+MM-0046,Hyundai,i30 (1.5 T-GDI 48V N Line Sky),2020,156473,Ess.,Vente,4199.64,,2026-06-20
+MM-0032,Honda,e (Advance),2022,71866,Électrique,VENTE,4500.0,,2026-06-20
+MM-0010,BMW,5 series (M550i XDrive),2019,117718,ESSENCE,VENTE,16174.68,,2026-06-20
+MM-0096,Nissan,Juke (DIG-T 117 Acenta),2019,123251,Essence,Vente,3244.8,,2026-06-20
+MM-0092,Mercedes,E-class (-Benz E 300),2018,96220,ESSENCE,vente,7993.68,,2026-06-20
+MM-0058,Kia,Picanto (1.0 DPi DynamicLine 4-zits),2018,171176,Essence,VENTE,1909.8,,2026-06-20
+MM-0030,Ford,Puma (1.0 EcoBoost 125hp ST-Line),2022,60849,Ess.,Loc. LD,,95.77,2026-06-20
+MM-0008,Audi,e-tron Sportback (50 Quattro Business Edition Plus),2021,49709,ELECTRIQUE,location,,185.88,2026-06-20
+MM-0054,Kia,Picanto (1.0 DPi DynamicLine 5-zits),2020,95527,Ess.,Vente,1873.8,,2026-06-20
+MM-0091,Mercedes,E-class (-Benz E 200),2018,170164,ESSENCE,VENTE,7054.44,,2026-06-20
+MM-0131,Volvo,V90 (T8 Recharge AWD Inscription),2024,39284,Ess.,vente,38909.78,,2026-06-20
+MM-0076,Lexus,RX (450h Executive Line),2019,96304,ESSENCE,Vente,10182.0,,2026-06-20
+MM-0122,Toyota,C-HR (1.2T Dynamic),2022,73782,Ess.,vente,3558.0,,2026-06-20
+MM-0002,Alfa Romeo,Giulia (2.0T 280hp Veloce),2024,26012,Essence,VENTE,36573.57,,2026-06-20
+MM-0040,Honda,e (specs),2022,80241,Électrique,LOCATION LD,,86.25,2026-06-20
+MM-0107,Subaru,Forester (2.0i E-BOXER Comfort),2022,80704,essence,vente,5687.52,,2026-06-20
+MM-0031,Honda,e (Advance),2018,144543,electrique,Vente,4500.0,,2026-06-20
+MM-0004,Audi,e-tron Sportback (50 Quattro Business Edition),2018,171181,Électrique,VENTE,8382.0,,2026-06-20
+MM-0016,Ferrari,F8 Spider (specs),2021,63368,ESSENCE,Vente,38562.0,,2026-06-20
+MM-0116,Tesla,Model Y (Performance AWD),2020,62072,ELECTRIQUE,Vente,8400.0,,2026-06-20
+MM-0078,Lexus,RX (450h Executive Line),2020,85405,ESSENCE,Vente,10182.0,,2026-06-20
+MM-0102,Porsche,Panamera (Turbo S),2023,38339,Ess.,vente,96726.8,,2026-06-20
+MM-0017,Ferrari,F8 Spider (specs),2019,134644,essence,Vente,38562.0,,2026-06-20
+MM-0099,Porsche,Panamera (GTS),2021,75534,Ess.,Vente,23215.56,,2026-06-20
+MM-0035,Honda,e (Advance),2018,129593,Électrique,VENTE,4500.0,,2026-06-20
+MM-0027,Ford,Puma (1.0 EcoBoost 125hp ST-Line),2022,94670,Essence,LOCATION LD,,73.39,2026-06-20
+MM-0136,Volvo,V90 (T8 Recharge AWD R-Design),2018,164862,ESSENCE,LOCATION LD,,181.69,2026-06-20
+MM-0124,Volkswagen,Golf (1.4 EHybrid 245hp GTE),2022,42531,essence,vente,9531.81,,2026-06-20
+MM-0103,Porsche,Panamera (Turbo S),2022,50064,ESSENCE,LOCATION LD,,1014.8,2026-06-20
+MM-0047,Hyundai,i30 (1.5 T-GDI 48V N Line Sky),2023,61386,Essence,LOCATION,,221.98,2026-06-20
+MM-0126,Volkswagen,Golf (1.4 EHybrid 245hp GTE),2018,134584,ESSENCE,VENTE,4975.8,,2026-06-20
+MM-0025,Ford,Puma (1.0 EcoBoost 125hp Titanium X),2020,98346,Essence,Loc. LD,,75.76,2026-06-20
+MM-0134,Volvo,V90 (T8 Recharge AWD Inscription),2023,37082,ESSENCE,LOCATION,,599.79,2026-06-20
+MM-0117,Tesla,Model Y (Performance AWD),2019,,ELECTRIQUE,vente,8400.0,,2026-06-20
+MM-0060,Lamborghini,Aventador (S),2018,N/C,Ess.,Vente,55143.72,,2026-06-20
+MM-0070,Lexus,RX (450h Business Line),2021,43411,ESSENCE,Loc. LD,,190.38,2026-06-20
+MM-0101,Porsche,Panamera (GTS),2019,77397,Ess.,VENTE,23215.56,,2026-06-20
+MM-0001,Alfa Romeo,Giulia (2.0T 280hp Veloce),2025,15840,Essence,Vente,48276.1,,2026-06-20
+MM-0066,Lamborghini,Urus (specs),2019,48144,ESSENCE,vente,33461.28,,2026-06-20
+MM-0100,Porsche,Panamera (GTS),2023,49142,essence,LOCATION,,1424.5,2026-06-20
+MM-0015,Ferrari,F8 Spider (specs),2022,55011,Ess.,location,,1204.77,2026-06-20
+MM-0110,Tesla,Model Y (Long Range AWD),2022,62317,electrique,LOCATION,,200.98,2026-06-20
+MM-0033,Honda,e (Advance),2024,45135,electrique,vente,19479.75,,2026-06-20
+MM-0041,Hyundai,i20 (1.2 MPI Comfort),2025,13122,Essence,VENTE,15030.71,,2026-06-20
+MM-0115,Tesla,Model Y (Performance AWD),2023,33154,Electrique,location,,608.69,2026-06-20
+MM-0132,Volvo,V90 (T8 Recharge AWD Inscription),2023,36756,ESSENCE,LOCATION LD,,601.74,2026-06-20
+MM-0005,Audi,e-tron Sportback (50 Quattro Business Edition Plus),2020,93088,Électrique,LOCATION,,185.88,2026-06-20
+MM-0071,Lexus,RX (450h Business Line),2017,62040,Essence,VENTE,9138.0,,2026-06-20
+MM-0098,Nissan,Juke (DIG-T 117 Acenta),2017,156410,essence,LOCATION LD,,67.6,2026-06-20
+MM-0052,Kia,Picanto (1.0 DPi DynamicLine 5-zits),2018,161768,Essence,VENTE,1873.8,,2026-06-20
+MM-0085,Mazda,MX-30 (Luxury),2025,27016,Électrique,vente,28267.76,,2026-06-20
+MM-0037,Honda,e (specs),2025,10665,Electrique,Vente,27853.23,,2026-06-20
+MM-0064,Lamborghini,Urus (specs),2022,67959,ESSENCE,LOCATION LD,,744.54,2026-06-20
+MM-0089,Mercedes,E-class (-Benz E 200),2022,71068,Ess.,Vente,7054.44,,2026-06-20
+MM-0112,Tesla,Model Y (Long Range AWD),2021,53836,Électrique,Loc. LD,,160.0,2026-06-20
+MM-0137,Volvo,V90 (T8 Recharge AWD R-Design),2021,73595,Essence,location,,181.69,2026-06-20
+MM-0104,Porsche,Panamera (Turbo S),2021,85096,Ess.,LOCATION,,609.66,2026-06-20
+MM-0014,BMW,5 series (530e),2020,53670,Essence,VENTE,7567.08,,2026-06-20
+MM-0086,Mazda,MX-30 (Luxury),2019,135043,electrique,LOCATION LD,,95.25,2026-06-20
+MM-0042,Hyundai,i20 (1.2 MPI Comfort),2023,35774,Ess.,VENTE,7668.92,,2026-06-20
+MM-0043,Hyundai,i30 (1.5 T-GDI 48V N Line Sky),2025,abc,Ess.,vente,27488.88,,2026-06-20
+MM-0053,Kia,Picanto (1.0 DPi DynamicLine 5-zits),2022,55476,Essence,VENTE,2780.97,,2026-06-20
+MM-0128,Volkswagen,Up (1.0 R-Line),2018,100587,ESSENCE,VENTE,2106.0,,2026-06-20
+MM-0078,Lexus,RX (450h Executive Line),2020,85405,ESSENCE,Vente,10182.0,,2026-06-20
+MM-0012,BMW,5 series (530e),2023,62103,ESSENCE,Vente,19017.84,,2026-06-20
+MM-0063,Lamborghini,Aventador (S),2023,59036,Essence,Loc. LD,,3004.72,2026-06-20
+MM-0105,Porsche,Panamera (Turbo S),2025,19712,Essence,LOCATION,,3917.82,2026-06-20
+MM-0082,Mazda,MX-30 (Luxury),2018,182422,Electrique,location,,95.25,2026-06-20
+MM-0056,Kia,Picanto (1.0 DPi DynamicLine 4-zits),2021,57876,Essence,Vente,1909.8,,2026-06-20
+MM-0075,Lexus,RX (450h Executive Line),2017,183960,essence,Loc. LD,,212.12,2026-06-20
+MM-0133,Volvo,V90 (T8 Recharge AWD Inscription),2024,35543,Essence,VENTE,39982.32,,2026-06-20
+MM-0036,Honda,e (specs),2020,123137,Electrique,Vente,4140.0,,2026-06-20
+MM-0118,Tesla,Model Y (Performance AWD),2019,88612,Électrique,vente,8400.0,,2026-06-20
+MM-0057,Kia,Picanto (1.0 DPi DynamicLine 4-zits),2023,45711,essence,Loc. LD,,121.74,2026-06-20
+MM-0084,Mazda,MX-30 (Luxury),2021,108869,electrique,VENTE,4572.0,,2026-06-20
+MM-0067,Land Rover,Range Rover Velar (P400 SE),2021,96790,Essence,vente,13321.44,,2026-06-20
+MM-0061,Lamborghini,Aventador (S),2025,23351,essence,LOCATION,,7243.32,2026-06-20
+MM-0045,Hyundai,i30 (1.5 T-GDI 48V N Line Sky),2022,51816,Essence,Vente,6745.18,,2026-06-20
+MM-0138,Volvo,V90 (T8 Recharge AWD R-Design),2022,61642,Essence,VENTE,11150.67,,2026-06-20
+MM-0069,Land Rover,Range Rover Velar (P400 SE),2021,97368,essence,vente,13321.44,,2026-06-20
+MM-0006,Audi,e-tron Sportback (50 Quattro Business Edition Plus),2019,131200,ELECTRIQUE,Vente,8922.0,,2026-06-20
+MM-0059,Lamborghini,Aventador (S),2021,97330,ESSENCE,VENTE,55143.72,,2026-06-20
+MM-0024,Ford,Puma (1.0 EcoBoost 125hp Titanium X),2021,74045,essence,location,,75.76,2026-06-20
+MM-0007,Audi,e-tron Sportback (50 Quattro Business Edition Plus),2021,91365,Electrique,VENTE,8922.0,,2026-06-20
+MM-0065,Lamborghini,Urus (specs),2016,159700,essence,VENTE,33461.28,,2026-06-20
+MM-0083,Mazda,MX-30 (Luxury),2024,29511,Électrique,VENTE,22172.52,,2026-06-20
+MM-0111,Tesla,Model Y (Long Range AWD),2021,69757,ELECTRIQUE,Vente,7680.0,,2026-06-20
+MM-0011,BMW,5 series (M550i XDrive),2020,74042,Essence,location,,336.97,2026-06-20
+MM-0021,Ferrari,SF90 Stradale (specs),2024,27869,ESSENCE,VENTE,268265.13,,2026-06-20
+MM-0113,Tesla,Model Y (Long Range AWD),2021,62671,ELECTRIQUE,VENTE,7680.0,,2026-06-20
+MM-0127,Volkswagen,Golf (1.4 EHybrid 245hp GTE),2024,30749,essence,location,,498.45,2026-06-20
+MM-0139,Volvo,V90 (T8 Recharge AWD R-Design),2022,66911,Ess.,Vente,9618.97,,2026-06-20
+MM-0129,Volkswagen,Up (1.0 R-Line),2022,59662,essence,vente,2831.73,,2026-06-20

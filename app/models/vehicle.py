@@ -43,6 +43,10 @@ class Vehicle(Base):
     # Liste de services inclus pour la location (séparés par virgule) — voir US-08.
     rental_included_services: Mapped[str | None] = mapped_column(String(255), nullable=True)
 
+    # Référence de l'ancien système (table "vehicules_stock") — permet à l'ETL
+    # de migration (US-12) d'être idempotent : un re-run ne crée pas de doublons.
+    legacy_ref: Mapped[str | None] = mapped_column(String(20), unique=True, nullable=True, index=True)
+
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )
