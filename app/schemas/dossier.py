@@ -12,6 +12,14 @@ class DossierCreate(BaseModel):
     vehicle_id: str = Field(min_length=1)
 
 
+class DossierDecision(BaseModel):
+    """Payload pour PATCH /dossiers/{id}/decision (US-11)."""
+
+    decision: DossierStatus = Field(description="'approved' ou 'rejected' uniquement")
+    reason: str | None = Field(default=None, max_length=1000, description="Motif, optionnel")
+
+
+
 class DocumentOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

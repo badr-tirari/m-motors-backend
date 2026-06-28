@@ -5,12 +5,13 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.deps import get_current_user, require_admin
+from app.core.notifications import EmailNotifier, get_email_notifier
 from app.core.storage import FileStorage, get_file_storage
 from app.db.session import get_db
 from app.models.dossier import Dossier, DossierDocument, DossierStatus, DossierStatusEvent
 from app.models.user import User
 from app.models.vehicle import Vehicle
-from app.schemas.dossier import DocumentOut, DossierCreate, DossierOut
+from app.schemas.dossier import DocumentOut, DossierCreate, DossierDecision, DossierOut
 
 router = APIRouter(prefix="/dossiers", tags=["dossiers"])
 
@@ -41,6 +42,60 @@ def list_dossiers_admin(
     if dossier_status is not None:
         query = query.where(Dossier.status == dossier_status)
     return list(db.scalars(query).all())
+
+
+@router.patch(
+    "/{dossier_id}/decision",
+    response_model=DossierOut,
+    summary="Valider ou refuser un dossier (US-11)",
+)
+def decide_dossier(
+    dossier_id: str,
+    payload: DossierDecision,
+    db: Annotated[Session, Depends(get_db)],
+    _admin: Annotated[User, Depends(require_admin)],
+    notifier: Annotated[EmailNotifier, Depends(get_email_notifier)],
+) -> Dossier:
+    """
+    En tant qu'admin, je veux valider ou refuser un dossier afin que le client
+    soit informé de la décision.
+
+    Critères d'acceptation (MMOT-18) :
+    - action valider/refuser avec motif optionnel
+    - mise à jour du statut visible côté client (US-06, via status_events)
+    - notification au client (email)
+    - un dossier déjà tranché (approved/rejected) ne peut pas être re-décidé
+    """
+    if payload.decision == DossierStatus.PENDING:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="La décision doit être 'approved' ou 'rejected'.",
+        )
+
+    dossier = db.get(Dossier, dossier_id)
+    if dossier is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dossier introuvable.")
+    if dossier.status != DossierStatus.PENDING:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Ce dossier a déjà été tranché (statut actuel : {dossier.status.value}).",
+        )
+
+    dossier.status = payload.decision
+    dossier.rejection_reason = payload.reason if payload.decision == DossierStatus.REJECTED else None
+    db.add(DossierStatusEvent(dossier_id=dossier.id, status=payload.decision, reason=payload.reason))
+    db.commit()
+    db.refresh(dossier)
+
+    client = db.get(User, dossier.client_id)
+    decision_label = "validé" if payload.decision == DossierStatus.APPROVED else "refusé"
+    body = f"Votre dossier a été {decision_label}."
+    if payload.reason:
+        body += f" Motif : {payload.reason}"
+    notifier.send(to=client.email, subject=f"M-Motors — Votre dossier a été {decision_label}", body=body)
+
+    return dossier
+
 
 
 @router.get(
