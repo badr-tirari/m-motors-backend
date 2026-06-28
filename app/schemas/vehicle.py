@@ -1,7 +1,7 @@
 from datetime import datetime
 from decimal import Decimal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.models.vehicle import VehicleMode, VehicleStatus
 
@@ -45,7 +45,20 @@ class VehicleCreate(BaseModel):
     mode: VehicleMode
     price_eur: Decimal | None = Field(default=None, gt=0)
     monthly_price_eur: Decimal | None = Field(default=None, gt=0)
-    rental_included_services: str | None = Field(default=None, max_length=255)
+    # Reçu côté formulaire admin comme une liste de cases cochées (US-08) :
+    # ["Assurance tous risques", "Entretien et SAV"] -> stocké normalisé en
+    # chaîne "Assurance tous risques, Entretien et SAV".
+    rental_included_services: list[str] | str | None = Field(default=None)
+
+    @field_validator("rental_included_services", mode="after")
+    @classmethod
+    def join_services_list(cls, value: list[str] | str | None) -> str | None:
+        if value is None:
+            return None
+        if isinstance(value, str):
+            return value.strip() or None
+        cleaned = [item.strip() for item in value if item.strip()]
+        return ", ".join(cleaned) if cleaned else None
 
     @model_validator(mode="after")
     def check_price_matches_mode(self) -> "VehicleCreate":
@@ -54,4 +67,5 @@ class VehicleCreate(BaseModel):
         if self.mode == VehicleMode.RENTAL and self.monthly_price_eur is None:
             raise ValueError("monthly_price_eur est obligatoire pour un véhicule en location (mode=rental).")
         return self
+
 
