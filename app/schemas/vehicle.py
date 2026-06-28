@@ -6,6 +6,24 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 from app.models.vehicle import VehicleMode, VehicleStatus
 
 
+def _normalize_services(value: list[str] | str | None) -> str | None:
+    """Normalise une liste de services inclus (cases cochées) en chaîne 'A, B, C'."""
+    if value is None:
+        return None
+    if isinstance(value, str):
+        return value.strip() or None
+    cleaned = [item.strip() for item in value if item.strip()]
+    return ", ".join(cleaned) if cleaned else None
+
+
+class ModeChangeOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    previous_mode: VehicleMode
+    new_mode: VehicleMode
+    changed_at: datetime
+
+
 class VehicleOut(BaseModel):
     """Représentation publique d'un véhicule (résultat de recherche / fiche détaillée)."""
 
@@ -23,6 +41,7 @@ class VehicleOut(BaseModel):
     monthly_price_eur: Decimal | None
     rental_included_services: str | None
     created_at: datetime
+    mode_changes: list[ModeChangeOut] = []
 
 
 class PaginatedVehicles(BaseModel):
@@ -32,6 +51,24 @@ class PaginatedVehicles(BaseModel):
     total: int
     page: int
     page_size: int
+
+
+class ToggleModePayload(BaseModel):
+    """Payload pour PATCH /vehicles/{id}/toggle-mode (US-09).
+
+    Si le nouveau mode est 'rental', monthly_price_eur devient obligatoire
+    (et inversement price_eur pour 'sale'), car le prix de l'autre mode
+    n'a peut-être jamais été saisi pour ce véhicule.
+    """
+
+    price_eur: Decimal | None = Field(default=None, gt=0)
+    monthly_price_eur: Decimal | None = Field(default=None, gt=0)
+    rental_included_services: list[str] | str | None = Field(default=None)
+
+    @field_validator("rental_included_services", mode="after")
+    @classmethod
+    def join_services_list(cls, value: list[str] | str | None) -> str | None:
+        return _normalize_services(value)
 
 
 class VehicleCreate(BaseModel):
@@ -53,12 +90,7 @@ class VehicleCreate(BaseModel):
     @field_validator("rental_included_services", mode="after")
     @classmethod
     def join_services_list(cls, value: list[str] | str | None) -> str | None:
-        if value is None:
-            return None
-        if isinstance(value, str):
-            return value.strip() or None
-        cleaned = [item.strip() for item in value if item.strip()]
-        return ", ".join(cleaned) if cleaned else None
+        return _normalize_services(value)
 
     @model_validator(mode="after")
     def check_price_matches_mode(self) -> "VehicleCreate":
@@ -67,5 +99,6 @@ class VehicleCreate(BaseModel):
         if self.mode == VehicleMode.RENTAL and self.monthly_price_eur is None:
             raise ValueError("monthly_price_eur est obligatoire pour un véhicule en location (mode=rental).")
         return self
+
 
 

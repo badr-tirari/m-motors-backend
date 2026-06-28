@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 from app.core.deps import require_admin
 from app.db.session import get_db
 from app.models.user import User
-from app.models.vehicle import Vehicle, VehicleMode, VehicleStatus
-from app.schemas.vehicle import PaginatedVehicles, VehicleCreate, VehicleOut
+from app.models.vehicle import Vehicle, VehicleMode, VehicleModeChange, VehicleStatus
+from app.schemas.vehicle import PaginatedVehicles, ToggleModePayload, VehicleCreate, VehicleOut
 
 router = APIRouter(prefix="/vehicles", tags=["vehicles"])
 
@@ -106,4 +106,58 @@ def get_vehicle(vehicle_id: str, db: Annotated[Session, Depends(get_db)]) -> Veh
     if vehicle is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Véhicule introuvable.")
     return vehicle
+
+
+@router.patch(
+    "/{vehicle_id}/toggle-mode",
+    response_model=VehicleOut,
+    summary="Basculer un véhicule vente ↔ location (US-09)",
+)
+def toggle_vehicle_mode(
+    vehicle_id: str,
+    payload: ToggleModePayload,
+    db: Annotated[Session, Depends(get_db)],
+    _admin: Annotated[User, Depends(require_admin)],
+) -> Vehicle:
+    """
+    En tant qu'admin, je veux basculer un véhicule de vente vers location (et
+    inversement) afin d'adapter l'offre commerciale sans recréer la fiche.
+
+    Critères d'acceptation (MMOT-16) :
+    - le nouveau prix (price_eur ou monthly_price_eur selon le nouveau mode)
+      doit être fourni si le véhicule ne l'avait pas déjà
+    - l'historique du changement de mode est conservé (VehicleModeChange)
+    """
+    vehicle = db.get(Vehicle, vehicle_id)
+    if vehicle is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Véhicule introuvable.")
+
+    new_mode = VehicleMode.RENTAL if vehicle.mode == VehicleMode.SALE else VehicleMode.SALE
+
+    if new_mode == VehicleMode.SALE:
+        new_price = payload.price_eur or vehicle.price_eur
+        if new_price is None:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="price_eur est requis pour basculer ce véhicule en vente.",
+            )
+        vehicle.price_eur = new_price
+    else:
+        new_monthly = payload.monthly_price_eur or vehicle.monthly_price_eur
+        if new_monthly is None:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="monthly_price_eur est requis pour basculer ce véhicule en location.",
+            )
+        vehicle.monthly_price_eur = new_monthly
+        if payload.rental_included_services is not None:
+            vehicle.rental_included_services = payload.rental_included_services
+
+    db.add(VehicleModeChange(vehicle_id=vehicle.id, previous_mode=vehicle.mode, new_mode=new_mode))
+    vehicle.mode = new_mode
+
+    db.commit()
+    db.refresh(vehicle)
+    return vehicle
+
 
