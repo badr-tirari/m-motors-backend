@@ -1,10 +1,10 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, UploadFile, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, require_admin
 from app.core.storage import FileStorage, get_file_storage
 from app.db.session import get_db
 from app.models.dossier import Dossier, DossierDocument, DossierStatus, DossierStatusEvent
@@ -16,6 +16,55 @@ router = APIRouter(prefix="/dossiers", tags=["dossiers"])
 
 MAX_DOCUMENT_SIZE_BYTES = 10 * 1024 * 1024  # 10 Mo
 ALLOWED_CONTENT_TYPES = {"application/pdf", "image/jpeg", "image/png"}
+
+
+@router.get(
+    "/admin",
+    response_model=list[DossierOut],
+    summary="Lister les dossiers, filtrables par statut (US-10)",
+)
+def list_dossiers_admin(
+    db: Annotated[Session, Depends(get_db)],
+    _admin: Annotated[User, Depends(require_admin)],
+    dossier_status: DossierStatus | None = Query(None, alias="status"),
+) -> list[Dossier]:
+    """
+    En tant qu'admin, je veux visualiser tous les dossiers déposés par les
+    clients afin de les traiter dans l'ordre.
+
+    Critères d'acceptation (MMOT-17) :
+    - liste filtrable par statut (en attente / validé / refusé)
+    - accès aux documents joints par le client (métadonnées ici, contenu via
+      GET /dossiers/{id}/documents/{document_id})
+    """
+    query = select(Dossier).order_by(Dossier.created_at.asc())
+    if dossier_status is not None:
+        query = query.where(Dossier.status == dossier_status)
+    return list(db.scalars(query).all())
+
+
+@router.get(
+    "/{dossier_id}/documents/{document_id}",
+    summary="Télécharger un document joint (US-10)",
+)
+def download_document(
+    dossier_id: str,
+    document_id: str,
+    db: Annotated[Session, Depends(get_db)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    storage: Annotated[FileStorage, Depends(get_file_storage)],
+) -> Response:
+    """Accessible par le propriétaire du dossier OU un admin (revue back-office)."""
+    document = db.get(DossierDocument, document_id)
+    if document is None or document.dossier_id != dossier_id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Document introuvable.")
+
+    dossier = db.get(Dossier, dossier_id)
+    if dossier.client_id != current_user.id and current_user.role.value != "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Accès refusé à ce document.")
+
+    content = storage.read(document.stored_path)
+    return Response(content=content, media_type=document.content_type)
 
 
 @router.get(
@@ -40,6 +89,7 @@ def list_my_dossiers(
             select(Dossier).where(Dossier.client_id == current_user.id).order_by(Dossier.created_at.desc())
         ).all()
     )
+
 
 
 @router.get(
