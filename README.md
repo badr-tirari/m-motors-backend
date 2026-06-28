@@ -52,6 +52,13 @@ Chaque feature est développée isolément, testée, puis mergée dans `develop`
 | `feature/US-03-vehicle-search` | [MMOT-9](https://tiraribadr.atlassian.net/browse/MMOT-9) | Rechercher un véhicule |
 | `feature/US-04-vehicle-detail` | [MMOT-10](https://tiraribadr.atlassian.net/browse/MMOT-10) | Fiche détaillée d'un véhicule |
 | `feature/US-12-etl-migration` | [MMOT-11](https://tiraribadr.atlassian.net/browse/MMOT-11) | Migration ETL legacy → PostgreSQL |
+| `feature/US-05-deposit-dossier` | [MMOT-12](https://tiraribadr.atlassian.net/browse/MMOT-12) | Déposer un dossier (achat/location) |
+| `feature/US-06-track-dossier` | [MMOT-13](https://tiraribadr.atlassian.net/browse/MMOT-13) | Suivre l'avancement de son dossier |
+| `feature/US-07-add-vehicle-sale` | [MMOT-14](https://tiraribadr.atlassian.net/browse/MMOT-14) | Ajouter un véhicule à la vente |
+| `feature/US-08-add-vehicle-rental` | [MMOT-15](https://tiraribadr.atlassian.net/browse/MMOT-15) | Ajouter un véhicule à la location |
+| `feature/US-09-toggle-vehicle-mode` | [MMOT-16](https://tiraribadr.atlassian.net/browse/MMOT-16) | Basculer un véhicule vente ↔ location |
+| `feature/US-10-view-dossiers` | [MMOT-17](https://tiraribadr.atlassian.net/browse/MMOT-17) | Visualiser les dossiers en attente |
+| `feature/US-11-decide-dossier` | [MMOT-18](https://tiraribadr.atlassian.net/browse/MMOT-18) | Valider ou refuser un dossier |
 
 ## Migration des données legacy (US-12)
 
