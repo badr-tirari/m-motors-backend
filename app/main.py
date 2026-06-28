@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from app.db.base import Base
 from app.db.session import engine
-from app.routers import auth, vehicles
+from app.routers import auth, dossiers, vehicles
 
 # Crée les tables si elles n'existent pas encore (dev). En production,
 # la création/migration du schéma est gérée séparément (cf. US-12, US-14).
@@ -16,6 +16,7 @@ app = FastAPI(
 
 app.include_router(auth.router, prefix="/api")
 app.include_router(vehicles.router, prefix="/api")
+app.include_router(dossiers.router, prefix="/api")
 
 
 @app.get("/health", tags=["monitoring"])
