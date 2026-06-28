@@ -2,8 +2,8 @@ import enum
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import DateTime, Enum, Integer, Numeric, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import DateTime, Enum, ForeignKey, Integer, Numeric, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 
@@ -50,3 +50,25 @@ class Vehicle(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )
+
+    mode_changes: Mapped[list["VehicleModeChange"]] = relationship(
+        back_populates="vehicle", cascade="all, delete-orphan", order_by="VehicleModeChange.changed_at"
+    )
+
+
+class VehicleModeChange(Base):
+    """Historique des bascules vente <-> location d'un véhicule (US-09)."""
+
+    __tablename__ = "vehicle_mode_changes"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    vehicle_id: Mapped[str] = mapped_column(String(36), ForeignKey("vehicles.id"), nullable=False, index=True)
+
+    previous_mode: Mapped[VehicleMode] = mapped_column(Enum(VehicleMode), nullable=False)
+    new_mode: Mapped[VehicleMode] = mapped_column(Enum(VehicleMode), nullable=False)
+    changed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
+    )
+
+    vehicle: Mapped["Vehicle"] = relationship(back_populates="mode_changes")
+
