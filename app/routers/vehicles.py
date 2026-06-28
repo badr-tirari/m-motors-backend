@@ -4,11 +4,42 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.core.deps import require_admin
 from app.db.session import get_db
+from app.models.user import User
 from app.models.vehicle import Vehicle, VehicleMode, VehicleStatus
-from app.schemas.vehicle import PaginatedVehicles, VehicleOut
+from app.schemas.vehicle import PaginatedVehicles, VehicleCreate, VehicleOut
 
 router = APIRouter(prefix="/vehicles", tags=["vehicles"])
+
+
+@router.post(
+    "",
+    response_model=VehicleOut,
+    status_code=status.HTTP_201_CREATED,
+    summary="Ajouter un véhicule à la vente ou à la location (US-07, US-08)",
+)
+def create_vehicle(
+    payload: VehicleCreate,
+    db: Annotated[Session, Depends(get_db)],
+    _admin: Annotated[User, Depends(require_admin)],
+) -> Vehicle:
+    """
+    En tant qu'admin, je veux ajouter un véhicule à la vente (US-07) ou à la
+    location longue durée (US-08) afin de l'exposer dans le catalogue.
+
+    Critères d'acceptation (MMOT-14, MMOT-15) :
+    - réservé aux comptes admin (403 sinon)
+    - prix obligatoire pour la vente, mensualité obligatoire pour la location
+      (validé par le schéma VehicleCreate)
+    - le véhicule créé est immédiatement visible dans le catalogue (status=available)
+    """
+    vehicle = Vehicle(**payload.model_dump(), status=VehicleStatus.AVAILABLE)
+    db.add(vehicle)
+    db.commit()
+    db.refresh(vehicle)
+    return vehicle
+
 
 
 @router.get("", response_model=PaginatedVehicles, summary="Rechercher des véhicules (US-03)")
