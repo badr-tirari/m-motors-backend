@@ -18,6 +18,53 @@ MAX_DOCUMENT_SIZE_BYTES = 10 * 1024 * 1024  # 10 Mo
 ALLOWED_CONTENT_TYPES = {"application/pdf", "image/jpeg", "image/png"}
 
 
+@router.get(
+    "/me",
+    response_model=list[DossierOut],
+    summary="Lister mes dossiers (US-06)",
+)
+def list_my_dossiers(
+    db: Annotated[Session, Depends(get_db)],
+    current_user: Annotated[User, Depends(get_current_user)],
+) -> list[Dossier]:
+    """
+    En tant que client, je veux suivre l'avancement de mon dossier depuis mon
+    espace personnel afin de savoir où en est ma demande.
+
+    Critères d'acceptation (MMOT-13) :
+    - statuts visibles : en attente / validé / refusé
+    - liste triée du plus récent au plus ancien
+    """
+    return list(
+        db.scalars(
+            select(Dossier).where(Dossier.client_id == current_user.id).order_by(Dossier.created_at.desc())
+        ).all()
+    )
+
+
+@router.get(
+    "/{dossier_id}",
+    response_model=DossierOut,
+    summary="Consulter un dossier et son historique (US-06)",
+)
+def get_dossier(
+    dossier_id: str,
+    db: Annotated[Session, Depends(get_db)],
+    current_user: Annotated[User, Depends(get_current_user)],
+) -> Dossier:
+    """
+    Critères d'acceptation (MMOT-13) :
+    - historique des changements de statut consultable (`status_events`)
+    - seul le propriétaire du dossier peut le consulter
+    """
+    dossier = db.get(Dossier, dossier_id)
+    if dossier is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dossier introuvable.")
+    if dossier.client_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Ce dossier ne vous appartient pas.")
+    return dossier
+
+
 @router.post(
     "",
     response_model=DossierOut,
@@ -62,6 +109,7 @@ def create_dossier(
     db.commit()
     db.refresh(dossier)
     return dossier
+
 
 
 @router.post(
