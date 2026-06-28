@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./dev.db"
     secret_key: str = "change-me-to-a-random-secret-in-production"
     access_token_expire_minutes: int = 30
+    upload_dir: str = "./uploads"
 
 
 settings = Settings()
